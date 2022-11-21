@@ -1,8 +1,8 @@
 
-# Probing Check GUI Desktop App
+# Bus Schedule Calibration & Optimization
 
-The app is basically analyzing *two separate files* to check over each other and generate a text document probe check report. 
-The **purpose** of developing this app is to target which fixed route buses are not probed and which dates are their last time probing.
+The code is basically analyzing Scheduled Segment Runtime and Actual Segment Runtime, and then choose quantile 90% actual running time range for each segment.
+The **purpose** of developing this codes is to improve bus On-Time-Perfomance (OTP), decrease operators' driving time for further operating costs.
 
 
 
@@ -10,8 +10,8 @@ The **purpose** of developing this app is to target which fixed route buses are 
 
 This project is used by the following file formats:
 
-- **probing summary csv file**, which is downloaded from *GenFare*
-- **daily operation log folder**, which is provided by *LeeTran Operdation Department*
+- **Jupyter Notebook**, which we have two, one is for optimizationg travel time, another is for calibrating segment schedule time
+- **csv files**, which are downloaded from *CleverReports-LeeTran-Segment Runtime*
 
 
 ## Deployment
@@ -20,48 +20,40 @@ To deploy this project run, the following modules are needed to be imported as b
 
 ```bash
 import pandas as pd
+import numpy as np
 import os
-import math
 import datetime
 from datetime import datetime
-from contextlib import redirect_stdout
-import tkinter as tk
-import tkinter.font as font
-from tkinter import filedialog
-from PIL import Image, ImageTk
-```
-
-To convert .py into .exe, copy the following command onto your Anaconda Prompt
-```bash
-auto-py-to-exe
+from datetime import timedelta
 ```
 
 
 
 ## Repository Structure
 
-#### Update key notes:
+#### Notes:
 
-
-- (1) only pick up 3-digit Bus number
-- (2) remove text in stand-by list 
-- (3) remove '/' and ' / " from stand_by_list
+- (1) We downloaded on-season segment runtime, because if drivers can make it on time on seasonal period, drivers can definitely arrive on time on non-seasonal period.
+- (2) The two .ipynb files are just examples to display how to use jupyter notebook to calibrate & optimize bus schedule, the routes are not only limited to Route 50.
+- (3) Lee County season period is generally from mid November to Mid April.
+- (4) Route 50 have Weekday-Saturday schedule time (two blocks) and Sunday schedule time (one block). 
 
 
 | File Name | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `ProbeCheck_V4` | `.py` | **Required**. It is the main file, updated to 4th version |
+| `Calibrate Route 50 on-season` | `.ipynb` | **Required**. It is the bus schedule calibration file. |
+| `Optimized travel time by time of the day - 50` | `.ipynb` | **Required**. It is the bus travel time optimization file. |
 
 #### Other supplementary files description
 
-```http
-All uploaded .xlsm files are used for testing.
-```
+
 
 | File Name | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `test for opt logs hurr ian`      | `.py` | **Test file** |
-
+| `50 East Weekdays-Saturday - Dec - Mar`      | `.csv` | **Input** |
+| `50 West Weekdays-Saturday - Dec - Mar`      | `.csv` | **Input** |
+| `50 East Sunday - Dec - Mar`      | `.csv` | **Input** |
+| `50 West Sunday - Dec - Mar`      | `.csv` | **Input** |
 
 
 
@@ -81,6 +73,4 @@ Python, R, SQL, ArcGIS, Nlogit, Stata, Power BI, Javascript, HTML, CSS, Synchro,
 ## Acknowledgements
 
  - [LeeTran](https://www.leegov.com/leetran/how-to-ride/maps-schedules)
- - [Learn more about how to loop over images by using Python Tkinter](https://www.youtube.com/watch?v=NoTM8JciWaQ&t=565s)
- - [Genfare](https://www.genfare.com/products/)
 
